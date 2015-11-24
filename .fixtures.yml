@@ -1,0 +1,16 @@
+fixtures:
+  forge_modules:
+    stdlib:     { repo: "puppetlabs/stdlib"         }
+    java:       { repo: "puppetlabs/java"           }
+    postgresql: { repo: "puppetlabs/postgresql"     }
+    stdlib:     { repo: "puppetlabs/stdlib"         }
+    archive:    { repo: "camptocamp/archive"        }
+    systemd:    { repo: "camptocamp/systemd"        }
+    wget:       { repo: "maestrodev/wget"           }
+  symlinks:
+    teamcity: "#{source_dir}"
+  repositories:
+    #mapr:
+    #  repo: "http://myurl/puppet-mapr.git"
+    #  # this is a branch. stolen from: don't remember.
+    #  ref: 'remotes/origin/ab/devel'

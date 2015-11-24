@@ -1,4 +1,5 @@
 pkg/
 *.sublime-workspace
 *.sublime-project
+spec/fixtures
 
