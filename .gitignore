@@ -1,1 +1,4 @@
 pkg/
+*.sublime-workspace
+*.sublime-project
+
