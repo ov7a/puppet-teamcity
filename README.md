@@ -26,19 +26,19 @@ If you want to modify parameters (which you do, currently, cause you must set th
 
     # teamcity::params class with default parameters
     class { 'teamcity::params':
-        $teamcity_version               = '9.1.3',
+        $teamcity_version               => '9.1.3',
 
-        $teamcity_base_url              = 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
+        $teamcity_base_url              => 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
 
-        $db_type                        = undef,
-        $db_host                        = undef,
-        $db_port                        = undef,
-        $db_name                        = undef,
-        $db_user                        = undef,
-        $db_pass                        = undef,
+        $db_type                        => undef,
+        $db_host                        => undef,
+        $db_port                        => undef,
+        $db_name                        => undef,
+        $db_user                        => undef,
+        $db_pass                        => undef,
 
-        $jdbc_download_url              = undef,
+        $jdbc_download_url              => undef,
 
-        $teamcity_data_path             = '/var/lib/teamcity',
-        $teamcity_logs_path             = '/opt/teamcity/logs',
+        $teamcity_data_path             => '/var/lib/teamcity',
+        $teamcity_logs_path             => '/opt/teamcity/logs',
     }
