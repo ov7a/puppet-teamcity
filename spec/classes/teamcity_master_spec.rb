@@ -13,6 +13,10 @@ describe 'teamcity::master', :type => 'class' do
       should contain_service('teamcity')
       should contain_archive('teamcity-9.1.3')
 
+      should contain_user('teamcity')
+      should contain_group('teamcity')
+      should contain_file('/opt/teamcity-sources')
+
       should_not contain_class('teamcity::db::install')
       should_not contain_class('teamcity::db::config')
       should_not contain_file('/var/lib/teamcity/config/database.properties')

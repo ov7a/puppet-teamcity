@@ -19,21 +19,12 @@ class teamcity::install inherits teamcity::params  {
   include wget
   include java
   include systemd
+  include teamcity::prepare
+
   Class['java'] -> Group['teamcity']
 
 
-  group { 'teamcity':
-    ensure  => 'present',
-    gid     => '2158',
-  } ->
-
-  user { 'teamcity':
-    ensure  => 'present',
-    gid     => 'teamcity',
-    uid     => '2158',
-  }
-
-  file { ["/opt/teamcity-${teamcity_version}",'/opt/teamcity-sources']:
+  file { "/opt/teamcity-${teamcity_version}":
     ensure  => 'directory',
     owner   => 'teamcity',
     group   => 'teamcity',

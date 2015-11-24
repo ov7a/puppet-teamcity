@@ -1,14 +1,18 @@
 # puppet-teamcity
 
-A module which installs JetBrains' TeamCity on a server.
+A module which installs JetBrains' TeamCity or agent on a server.
 
-Current limitations:
+The Teamcity installation id done by downloading the files from JetBrains. The agent installation is done by downloading the files directly from the working TeamCity server, so the agent installation will fail as long as the server is not running (precisely: the buildAgent.zip file cannotm be downloaded from the TC server).
 
-- only master supported
-- only postgres as database supported
+It is possible to install multiple agents on one server. Each agent will become its own service and installation directory. It is also possible to just use the agent installation, in case the TeamCity master is installed by other means (docker, for example) and not under the control of this puppet module.
 
 
-## Services
+## Limitations
+
+Currently only the postgres database can be fully configured. It should be possible though to "install" TeamCity without database configuration, and do it manually afterwards.
+
+
+## Dependencies
 
 The module will install java (using `include java` and the `puppetlabs/java` module), then download and install teamcity including the postgres JDBC jar. It will also create a systemd service file.
 
@@ -22,23 +26,45 @@ The module will install java (using `include java` and the `puppetlabs/java` mod
 
     include teamcity::master
 
-If you want to modify parameters (which you do, currently, cause you must set the database connection) you have to include the `teamcity::params` class like this:
+Automate database configuration:
 
-    # teamcity::params class with default parameters
     class { 'teamcity::params':
-        $teamcity_version               => '9.1.3',
-
-        $teamcity_base_url              => 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
-
-        $db_type                        => undef,
-        $db_host                        => undef,
-        $db_port                        => undef,
-        $db_name                        => undef,
-        $db_user                        => undef,
-        $db_pass                        => undef,
-
-        $jdbc_download_url              => undef,
-
-        $teamcity_data_path             => '/var/lib/teamcity',
-        $teamcity_logs_path             => '/opt/teamcity/logs',
+        db_type => 'postgresql',
+        db_host => 'localhost',
+        db_name => 'teamcity',
+        db_user => 'teamcity',
+        db_pass => 'shabalahaalalahaha',
     }
+
+    include teamcity::master
+
+Download TeamCity from a locally hosted location:
+
+    class { 'teamcity::params':
+        teamcity_base_url => 'http://machine.company.com/artifacts/teamcity-903.tgz',
+    }
+
+    include teamcity::master
+
+Add one (or more) agents on the local machine (note that the agent installation will fail until the master is up and running!):
+
+    include teamcity::master
+    teamcity::agent { 'myagent':
+        agent_master_url => 'http://teamcity-master:8111'
+    }
+    teamcity::agent { 'myotheragent':
+        agent_master_url => 'http://teamcity-master:8111'
+    }
+
+    # or alternatively, using a central definition with the params class,
+    # and don't install teamcity on the same host:
+
+    class { 'teamcity::params':
+        agent_master_url => 'http://teamcity-master:8111',
+    }
+    teamcity::agent { 'myagentone': }
+    teamcity::agent { 'myagenttwo': }
+
+Also note that the agent names (`myagent`, `myotheragent`, ...) must be unique across all agents. So you could do something like `"${ipaddress_eth0}.agent0"`, for example.
+
+Most of the parameters should be pretty self-explanatory, if not you probably should not use them for now.

@@ -1,6 +1,6 @@
 class teamcity::params (
   $teamcity_version               = '9.1.3',
-  $teamcity_base_url             = 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
+  $teamcity_base_url              = 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
 
   $db_type                        = undef,
   $db_host                        = undef,
@@ -14,7 +14,10 @@ class teamcity::params (
   $db_admin_pass                  = undef,
 
   $jdbc_download_url              = undef,
+  $agent_download_url             = '%%%TC_MASTER%%%/update/buildAgent.zip',
+  $agent_master_url               = undef,
 
+  $teamcity_agent_path            = '/opt/teamcity_agent',
   $teamcity_data_path             = '/var/lib/teamcity',
   $teamcity_logs_path             = '/opt/teamcity/logs',
 ) {
