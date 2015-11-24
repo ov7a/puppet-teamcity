@@ -15,15 +15,6 @@ class teamcity::install inherits teamcity::params  {
 
   $use_download_url = regsubst($teamcity_base_url, '%%%VERSION%%%', $teamcity_version)
   $use_target_dir   = "/opt/teamcity-${teamcity_version}"
-  $tmp              = split($jdbc_download_postgres, "[/\\\\]")
-  $jdbc_filename    = $tmp[-1]
-
-  $use_jdbc_download_url = $jdbc_download ? {
-    undef => $db_type ? {
-      'postgresql'  => 'https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc41.jar',
-    },
-    default => $jdbc_download_url,
-  }
 
   include wget
   include java
@@ -72,11 +63,6 @@ class teamcity::install inherits teamcity::params  {
     ensure  => 'directory',
     owner   => 'teamcity',
     group   => 'teamcity',
-  } ->
-
-  wget::fetch { $use_jdbc_download_url:
-    destination => "${teamcity_data_path}/lib/jdbc/${jdbc_filename}",
-    user        => 'teamcity',
   }
 
 }

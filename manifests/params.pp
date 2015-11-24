@@ -13,7 +13,6 @@ class teamcity::params (
   $db_admin_user                  = undef,
   $db_admin_pass                  = undef,
 
-  # only one supprted currently
   $jdbc_download_url              = undef,
 
   $teamcity_data_path             = '/var/lib/teamcity',

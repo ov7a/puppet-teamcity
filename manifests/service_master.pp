@@ -1,5 +1,7 @@
 class teamcity::service_master inherits teamcity::params  {
 
+  include systemd
+
   $start_command = 'teamcity-server.sh run'
   $stop_command  = 'teamcity-server.sh stop 30 -force'
   $kill_command  = 'teamcity-server.sh stop 5  -force'
@@ -10,7 +12,7 @@ class teamcity::service_master inherits teamcity::params  {
     mode    => '0755',
   } ~>
 
-  Exec['systemctl-daemon-reload']
+  Exec['systemctl-daemon-reload'] ->
 
   service { 'teamcity':
     ensure  => 'running',
