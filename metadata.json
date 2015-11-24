@@ -6,27 +6,56 @@
   "summary": "Module managing JetBrain's TeamCity installation including DB setup",
   "source": "https://github.com/flypenguin/puppet-teamcity",
   "project_page": "https://github.com/flypenguin/puppet-teamcity",
-  "tags": ["teamcity", "jetbrains"],
+  "tags": [
+    "teamcity",
+    "jetbrains"
+  ],
   "operatingsystem_support": [
     {
-    "operatingsystem":"Ubuntu",
-    "operatingsystemrelease":[ "15.04", "15.10" ]
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "15.04",
+        "15.10"
+      ]
     },
     {
-    "operatingsystem":"RedHat",
-    "operatingsystemrelease":[ "7.0", "7.1", "7.2" ]
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7.0",
+        "7.1",
+        "7.2"
+      ]
     },
     {
-    "operatingsystem":"CentOS",
-    "operatingsystemrelease":[ "7.0", "7.1", "7.2" ]
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7.0",
+        "7.1",
+        "7.2"
+      ]
     }
   ],
   "dependencies": [
-    { "name": "puppetlabs/java",      "version_requirement": ">=0.0.1"},
-    { "name": "puppetlabs/stdlib",    "version_requirement": ">=0.0.1"},
-    { "name": "camptocamp/archive",   "version_requirement": ">=0.0.1"},
-    { "name": "camptocamp/systemd",   "version_requirement": ">=0.0.1"},
-    { "name": "maestrodev/wget",      "version_requirement": ">=0.0.1"}
+    {
+      "name": "puppetlabs/java",
+      "version_requirement": ">=0.0.1"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=0.0.1"
+    },
+    {
+      "name": "camptocamp/archive",
+      "version_requirement": ">=0.0.1"
+    },
+    {
+      "name": "camptocamp/systemd",
+      "version_requirement": ">=0.0.1"
+    },
+    {
+      "name": "maestrodev/wget",
+      "version_requirement": ">=0.0.1"
+    }
   ],
   "data_provider": "hiera"
 }
