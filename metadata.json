@@ -41,6 +41,10 @@
       "version_requirement": ">=0.0.1"
     },
     {
+      "name": "puppetlabs/postgresql",
+      "version_requirement": ">=0.0.1"
+    },
+    {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">=0.0.1"
     },
