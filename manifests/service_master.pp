@@ -4,7 +4,7 @@ class teamcity::service_master inherits teamcity::params  {
 
   file { '/etc/systemd/system/teamcity.service':
     ensure  => 'present',
-    content => template('profiles/systemd_teamcity.service.erb'),
+    content => template('teamcity/systemd_teamcity.service.erb'),
     mode    => '0755',
   } ~>
 
