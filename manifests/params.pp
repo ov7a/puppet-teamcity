@@ -1,8 +1,6 @@
 class teamcity::params (
   $teamcity_version               = '9.1.3',
-
-  #$teamcity_base_url             = 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
-  $teamcity_base_url              = 'http://localhost:8080/TeamCity-%%%VERSION%%%.tar.gz',
+  $teamcity_base_url             = 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
 
   $db_type                        = undef,
   $db_host                        = undef,
