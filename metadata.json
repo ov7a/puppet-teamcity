@@ -1,6 +1,6 @@
 {
   "name": "flypenguin-teamcity",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Axel Bock <mr.axel.bock@gmail.com>",
   "license": "MIT",
   "summary": "Module managing JetBrain's TeamCity installation including DB setup",

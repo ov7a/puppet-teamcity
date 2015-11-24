@@ -11,10 +11,10 @@ Environment="TEAMCITY_HOME=/var/lib/teamcity"
 Environment="TEAMCITY_LOGS=/opt/teamcity/logs"
 Environment="TEAMCITY_DATA_PATH=/var/lib/teamcity"
 
-ExecStartPre=-/opt/teamcity/bin/teamcity-server stop 5 -force
-ExecStart=/opt/teamcity/bin/<%= @start_command %>.sh run
+ExecStartPre=-/opt/teamcity/bin/<%= @kill_command %>
+ExecStart=/opt/teamcity/bin/<%= @start_command %>
 
-ExecStop=-/opt/teamcity/bin/<%= @start_command %>.sh stop 30 -force
+ExecStop=-/opt/teamcity/bin/<%= @stop_command %>
 
 [Install]
 WantedBy=multi-user.target

@@ -1,6 +1,8 @@
 class teamcity::service_master inherits teamcity::params  {
 
-  $start_command = 'start-server'
+  $start_command = 'teamcity-server.sh run'
+  $stop_command  = 'teamcity-server.sh stop 30 -force'
+  $kill_command  = 'teamcity-server.sh stop 5  -force'
 
   file { '/etc/systemd/system/teamcity.service':
     ensure  => 'present',
