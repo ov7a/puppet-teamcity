@@ -6,6 +6,8 @@ define teamcity::agent (
   include teamcity::params
   Class['teamcity::params'] -> Teamcity::Agent<||>
 
+  include teamcity::agent::sudo
+
   # first, try to get it from the parameters class
   $use_master_url = $master_url ? {
     undef   => $::teamcity::params::agent_master_url,

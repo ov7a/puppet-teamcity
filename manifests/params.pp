@@ -2,6 +2,8 @@ class teamcity::params (
   $teamcity_version               = '9.1.3',
   $teamcity_base_url              = 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
 
+  $add_agent_sudo                 = false,
+
   $db_type                        = undef,
   $db_host                        = undef,
   $db_port                        = undef,
