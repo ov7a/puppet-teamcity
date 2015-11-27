@@ -21,6 +21,8 @@ The module will install java (using `include java` and the `puppetlabs/java` mod
 
 - ubuntu 15.10
 
+... but should work on any systemd-based distribution, including RedHat, arch and Debian. I greatly appreciate feedback!
+
 
 ## Usage
 

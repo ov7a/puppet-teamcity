@@ -1,9 +1,9 @@
 {
   "name": "flypenguin-teamcity",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "Axel Bock <mr.axel.bock@gmail.com>",
   "license": "MIT",
-  "summary": "Module managing JetBrain's TeamCity installation including DB setup",
+  "summary": "Module managing JetBrain's TeamCity installation including DB setup. Feedback *greatly* appreciated.",
   "source": "https://github.com/flypenguin/puppet-teamcity",
   "project_page": "https://github.com/flypenguin/puppet-teamcity",
   "tags": [
