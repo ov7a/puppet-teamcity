@@ -1,4 +1,5 @@
 define teamcity::agent (
+  $agent_name = $title,
   $master_url = undef,
   $port       = '9090',
 ) {
@@ -21,7 +22,7 @@ define teamcity::agent (
   #}
 
   if $use_master_url == undef {
-    fail("Teamcity::Agent[${title}]: Please set \$master_url or teamcity::param::agent_master_url")
+    fail("Teamcity::Agent[${agent_name}]: Please set \$master_url or teamcity::param::agent_master_url")
   }
 
 
@@ -37,14 +38,14 @@ define teamcity::agent (
   $tc_agent_path    = $::teamcity::params::teamcity_agent_path
   $download_url     = $::teamcity::params::agent_download_url
   $use_download_url = regsubst($download_url, '%%%TC_MASTER%%%', $use_master_url)
-  $use_agent_path   = "${tc_agent_path}_${title}"
+  $use_agent_path   = "${tc_agent_path}_${agent_name}"
 
   mkdir::p { $use_agent_path :
     owner => 'teamcity',
     group => 'teamcity',
   } ->
 
-  archive { "teamcity-agent-${title}":
+  archive { "teamcity-agent-${agent_name}":
     ensure            => 'present',
     url               => $use_download_url,
     target            => $use_agent_path,
@@ -55,7 +56,7 @@ define teamcity::agent (
     extension         => 'zip',
   } ->
 
-  exec { "check agents' ${title} presence":
+  exec { "check agents' ${agent_name} presence":
     command => 'false',
     unless  => "test -f '${use_agent_path}/bin/agent.sh'",
     path    => '/usr/bin:/bin',
@@ -70,7 +71,7 @@ define teamcity::agent (
 
   # config
 
-  exec { "create agent ${title} buildAgent.dist":
+  exec { "create agent ${agent_name} buildAgent.dist":
     command   => 'cp buildAgent.dist.properties buildAgent.properties',
     cwd       => "${use_agent_path}/conf",
     path      => '/usr/bin:/bin',
@@ -78,26 +79,26 @@ define teamcity::agent (
     user      => 'teamcity',
   } ->
 
-  file_line { "agent ${title} server url":
+  file_line { "agent ${agent_name} server url":
     ensure  => 'present',
     path    => "${use_agent_path}/conf/buildAgent.properties",
     line    => "serverUrl=${use_master_url}",
     match   => '^ *#? *serverUrl *=.*',
   } ->
 
-  file_line { "agent ${title} own port":
+  file_line { "agent ${agent_name} own port":
     ensure  => 'present',
     path    => "${use_agent_path}/conf/buildAgent.properties",
     line    => "ownPort=${port}",
     match   => '^ *#? *ownPort *=.*',
   } ->
 
-  file_line { "agent ${title} own name":
+  file_line { "agent ${agent_name} own name":
     ensure  => 'present',
     path    => "${use_agent_path}/conf/buildAgent.properties",
-    line    => "name=${title}",
+    line    => "name=${agent_name}",
     match   => '^ *#? *name *=.*',
-    before  => Service["teamcity-agent-${title}"],
+    before  => Service["teamcity-agent-${agent_name}"],
   }
 
 
@@ -106,9 +107,9 @@ define teamcity::agent (
   $start_command        = "${use_agent_path}/bin/agent.sh run"
   $stop_command         = "${use_agent_path}/bin/agent.sh stop"
   $kill_command         = "${use_agent_path}/bin/agent.sh stop force"
-  $service_description  = "Teamcity build agent '${title}'"
+  $service_description  = "Teamcity build agent '${agent_name}'"
 
-  file { "/etc/systemd/system/teamcity-agent-${title}.service":
+  file { "/etc/systemd/system/teamcity-agent-${agent_name}.service":
     ensure  => 'present',
     content => template('teamcity/systemd_teamcity.service.erb'),
     mode    => '0755',
@@ -116,7 +117,7 @@ define teamcity::agent (
 
   Exec['systemctl-daemon-reload'] ->
 
-  service { "teamcity-agent-${title}":
+  service { "teamcity-agent-${agent_name}":
     ensure  => 'running',
     enable  => true,
     require => File["${use_agent_path}/bin/agent.sh"]
