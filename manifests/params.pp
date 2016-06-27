@@ -22,5 +22,13 @@ class teamcity::params (
   $teamcity_agent_path            = '/opt/teamcity_agent',
   $teamcity_data_path             = '/var/lib/teamcity',
   $teamcity_logs_path             = '/opt/teamcity/logs',
+
+  $archive_provider               = 'camptocamp',
+
 ) {
+
+  validate_re($archive_provider, '^(camptocamp|puppet)$',
+    "teamcity::params::archive_provider must be one of 'camptocamp'/'puppet'"
+  )
+
 }

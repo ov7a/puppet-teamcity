@@ -41,25 +41,43 @@ define teamcity::agent (
   $use_agent_path   = "${tc_agent_path}_${agent_name}"
 
   mkdir::p { $use_agent_path :
-    owner => 'teamcity',
-    group => 'teamcity',
-  } ->
+    owner   => 'teamcity',
+    group   => 'teamcity',
+    before  => Archive["teamcity-agent-${agent_name}"],
+  }
 
-  archive { "teamcity-agent-${agent_name}":
-    ensure            => 'present',
-    url               => $use_download_url,
-    target            => $use_agent_path,
-    src_target        => '/opt/teamcity-sources',
-    follow_redirects  => true,
-    checksum          => false,
-    user              => 'teamcity',
-    extension         => 'zip',
-  } ->
+  if $::teamcity::params::archive_provider == 'camptocamp' {
+    archive { "teamcity-agent-${agent_name}":
+      ensure            => 'present',
+      url               => $use_download_url,
+      target            => $use_agent_path,
+      src_target        => '/opt/teamcity-sources',
+      follow_redirects  => true,
+      checksum          => false,
+      user              => 'teamcity',
+      extension         => 'zip',
+    }
+  } else {
+    archive { "teamcity-agent-${agent_name}":
+      ensure          => present,
+      path            => "/tmp/teamcityagent-${agent_name}.zip",
+      extract         => true,
+      source          => $use_download_url,
+      extract_path    => $use_agent_path,
+      # because we do mkdir::p before, this would not work with the directory
+      creates         => "${use_agent_path}/bin/agent.sh",
+      user            => 'teamcity',
+      checksum_verify => false,
+      cleanup         => true,
+    }
+  }
 
   exec { "check agents' ${agent_name} presence":
     command => 'false',
     unless  => "test -f '${use_agent_path}/bin/agent.sh'",
     path    => '/usr/bin:/bin',
+    require => Archive["teamcity-agent-${agent_name}"],
+
   } ->
 
   # yup, not done in the zip distribution. yeah, great.
