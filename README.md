@@ -70,3 +70,12 @@ Add one (or more) agents on the local machine (note that the agent installation 
 Also note that the agent names (`myagent`, `myotheragent`, ...) must be unique across all agents. So you could do something like `"${ipaddress_eth0}.agent0"`, for example.
 
 Most of the parameters should be pretty self-explanatory, if not you probably should not use them for now.
+
+
+## NEWS
+
+### v0.5.0, 2016-06-27
+
+- added LDAP configuration support
+- made archive provider configurable (puppet/archive, camptocamp/archive)
+
