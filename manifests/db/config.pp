@@ -11,6 +11,9 @@ class teamcity::db::config inherits ::teamcity::params {
   file { "${::teamcity::params::teamcity_data_path}/config/database.properties":
     ensure  => 'present',
     content => template("teamcity/${db_type}.database.properties.erb")
+    owner   => 'teamcity'
+    group   => 'teamcity'
+    mode    => '0640'
   } ~>
 
   Service['teamcity']
