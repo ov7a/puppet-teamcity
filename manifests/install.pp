@@ -4,6 +4,7 @@ class teamcity::install inherits teamcity::params  {
 
   $teamcity_version               = $teamcity::params::teamcity_version
   $teamcity_base_url              = $teamcity::params::teamcity_base_url
+  $teamcity_download_timeout      = $teamcity::params::teamcity_download_timeout
 
   $db_type                        = $teamcity::params::db_type
   $jdbc_download_url              = $teamcity::params::jdbc_download_url
@@ -47,6 +48,7 @@ class teamcity::install inherits teamcity::params  {
       strip_components  => 1,
       user              => 'teamcity',
       before            => File[$teamcity_data_path],
+      timeout           => $teamcity_download_timeout,
     }
   } else {
     # must be puppet :)

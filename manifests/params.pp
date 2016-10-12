@@ -16,6 +16,7 @@
 class teamcity::params (
   $teamcity_version               = '9.1.3',
   $teamcity_base_url              = 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
+  $teamcity_download_timeout      = 180,
 
   $authentication                 = 'local',
   $ldap_configuration             = undef,
