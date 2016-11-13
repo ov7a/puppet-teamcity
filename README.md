@@ -72,7 +72,14 @@ Also note that the agent names (`myagent`, `myotheragent`, ...) must be unique a
 Most of the parameters should be pretty self-explanatory, if not you probably should not use them for now.
 
 
+
 ## NEWS
+
+
+### v0.6.0, 2016-11-13
+
+- server download timeout now configurable (PR #2)
+
 
 ### v0.5.0, 2016-06-27
 
