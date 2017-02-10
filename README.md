@@ -76,6 +76,11 @@ Most of the parameters should be pretty self-explanatory, if not you probably sh
 ## NEWS
 
 
+### v0.6.1, 2017-02-10
+
+- fix puppet syntax error in `teamcity::db::config`
+
+
 ### v0.6.0, 2016-11-13
 
 - server download timeout now configurable (PR #2)
