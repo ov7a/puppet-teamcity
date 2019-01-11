@@ -33,7 +33,7 @@ class teamcity::install inherits teamcity::params  {
 
   file { "/opt/teamcity":
     ensure  => 'link',
-    target  => "/opt/teamcity-${teamcity_version}",
+    target  => "/opt/teamcity-${teamcity_version}/TeamCity",
     before  => Archive["teamcity-${teamcity_version}"],
   }
 
@@ -58,10 +58,12 @@ class teamcity::install inherits teamcity::params  {
       extract         => true,
       source          => $use_download_url,
       extract_path    => $use_target_dir,
-      creates         => $use_target_dir,
+      creates         => "${use_target_dir}/TeamCity",
       checksum_verify => false,
       cleanup         => true,
       before            => File[$teamcity_data_path],
+      user   => 'teamcity',
+      group   => 'teamcity',
     }
   }
 
@@ -74,5 +76,4 @@ class teamcity::install inherits teamcity::params  {
     owner   => 'teamcity',
     group   => 'teamcity',
   }
-
 }

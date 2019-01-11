@@ -67,6 +67,7 @@ define teamcity::agent (
       # because we do mkdir::p before, this would not work with the directory
       creates         => "${use_agent_path}/bin/agent.sh",
       user            => 'teamcity',
+      group           => 'teamcity',
       checksum_verify => false,
       cleanup         => true,
     }
