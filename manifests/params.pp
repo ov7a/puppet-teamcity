@@ -14,7 +14,7 @@
 # then the user is responsible for providing the file by himself.
 #
 class teamcity::params (
-  $teamcity_version               = '9.1.3',
+  $teamcity_version               = '2018.2.1',
   $teamcity_base_url              = 'http://download.jetbrains.com/teamcity/TeamCity-%%%VERSION%%%.tar.gz',
   $teamcity_download_timeout      = 180,
 
