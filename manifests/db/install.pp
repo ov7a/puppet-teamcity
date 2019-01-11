@@ -21,7 +21,7 @@ class teamcity::db::install inherits ::teamcity::params {
 
   $use_jdbc_download_url = $jdbc_download_url ? {
     undef => $db_type ? {
-      'postgresql'  => 'https://jdbc.postgresql.org/download/postgresql-9.4-1205.jdbc41.jar',
+      'postgresql'  => 'http://jdbc.postgresql.org/download/postgresql-42.2.2.jar',
     },
     default => $jdbc_download_url,
   }
