@@ -9,6 +9,7 @@ class teamcity::prepare inherits teamcity::params  {
     ensure  => 'present',
     gid     => 'teamcity',
     uid     => '2158',
+    managehome => true
   }
 
   file { '/opt/teamcity-sources':
